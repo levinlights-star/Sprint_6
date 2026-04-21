@@ -7,7 +7,6 @@ from pages.order_page import OrderPage
 from data.config import BASE_URL
 from data.order_data import ORDER_DATA
 from locators.main_page_locators import MainPageLocators
-from locators.order_page_locators import OrderPageLocators
 
 logger = logging.getLogger(__name__)
 
