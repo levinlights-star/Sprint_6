@@ -27,6 +27,14 @@ class OrderPage(BasePage):
         with allure.step("Кликнуть по кнопке 'Далее'"):
             self.click_element(OrderPageLocators.NEXT_BUTTON)
 
+    @allure.step("Выбрать цвет самоката")
+    def select_scooter_color(self, color: str):
+        color_locators = {
+            "black": OrderPageLocators.COLOR_BLACK,
+            "grey": OrderPageLocators.COLOR_GREY,
+        }
+        self.click_element(color_locators[color])
+
     @allure.step("Заполнить шаг 2: 'Про аренду'")
     def fill_order_step_two(self, data: dict):
         with allure.step("Заполнить дату 'Когда привезти самокат'"):
@@ -41,10 +49,7 @@ class OrderPage(BasePage):
         with allure.step("Выбрать срок аренды"):
             self.click_element(OrderPageLocators.RENT_OPTION(data["rent"]))
         with allure.step("Выбрать цвет самоката"):
-            if data["color"] == "black":
-                self.click_element(OrderPageLocators.COLOR_BLACK)
-            else:
-                self.click_element(OrderPageLocators.COLOR_GREY)
+            self.select_scooter_color(data["color"])
         with allure.step("Заполнить поле комментарий"):
             self.type(OrderPageLocators.COMMENT, data["comment"])
         with allure.step("Кликнуть по кнопке 'Заказать'"):
@@ -69,7 +74,7 @@ class OrderPage(BasePage):
 
         number = self.wait(timeout).until(_number_ready)
         return number if number else None
-    
-    @allure.step("Получить текст успешного оформления заказа")
-    def get_order_success_message_text(self):
-        return self.find_element(OrderPageLocators.ORDER_SUCCESS_MESSAGE).text
+
+    @allure.step("Получить элемент окна успешного заказа")
+    def get_order_success_message_element(self):
+        return self.find_element(OrderPageLocators.ORDER_SUCCESS_MESSAGE)

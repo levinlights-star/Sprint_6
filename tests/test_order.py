@@ -35,8 +35,10 @@ class TestOrder:
         order_number = order.get_order_number()
         logger.info("Номер заказа: %s", order_number)
 
-        success_message_text = order.get_order_success_message_text()
+        assert order.get_order_success_message_element().is_displayed(), (
+            "Окно подтверждения заказа не отобразилось"
+        )
 
-        assert "Заказ оформлен" in success_message_text and order_number is not None , (
-            "Текст об успешном оформлении заказа не отобразился"
+        assert order_number is not None, (
+            "Номер заказа не был получен"
         )

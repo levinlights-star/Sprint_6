@@ -1,0 +1,1 @@
+[32mINFO    [0m test_order:test_order.py:36 Номер заказа: 153914
